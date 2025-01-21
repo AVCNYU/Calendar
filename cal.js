@@ -1,56 +1,100 @@
+
+const monthElement = document.querySelector(".month ul li:nth-child(3)");
+const daysElement = document.querySelector(".days");
+const prevButton = document.querySelector(".prev");
+const nextButton = document.querySelector(".next");
+const dateAction = document.querySelector(".activate")
+let events = []
+
 const monthNames = [
     "January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"
 ];
 
-const daysInMonth = (year, month) => new Date(year, month + 1, 0).getDate();
-const firstDayOfMonth = (year, month) => new Date(year, month, 1).getDay();
-
-const calendarHeader = document.getElementById("month-year");
-const datesContainer = document.getElementById("dates");
-const prevButton = document.getElementById("prev-month");
-const nextButton = document.getElementById("next-month");
-
 let currentDate = new Date();
+
+function showEvents() {
+
+
+}
 
 function renderCalendar() {
     const year = currentDate.getFullYear();
     const month = currentDate.getMonth();
 
-    calendarHeader.textContent = `${monthNames[month]} ${year}`;
-    datesContainer.innerHTML = "";
+    // Set the month and year
+    monthElement.innerHTML = `${monthNames[month]}<br><span style="font-size:18px">${year}</span>`;
 
-    const firstDay = firstDayOfMonth(year, month);
-    const totalDays = daysInMonth(year, month);
+    // Clear previous days
+    daysElement.innerHTML = "";
 
-    // Fill in days from previous month
-    const prevMonthDays = daysInMonth(year, month - 1);
-    for (let i = firstDay - 1; i >= 0; i--) {
-        const day = document.createElement("div");
-        day.classList.add("date", "inactive");
-        day.textContent = prevMonthDays - i;
-        datesContainer.appendChild(day);
+    // Get first day of the month and total days in the month
+    const firstDayIndex = new Date(year, month, 1).getDay(); // Day index (0 - Sunday, 6 - Saturday)
+    const daysInMonth = new Date(year, month + 1, 0).getDate(); // Total days in the month
+
+    // Add blank spaces for previous month's days
+    for (let i = 0; i < (firstDayIndex === 0 ? 6 : firstDayIndex - 1); i++) {
+        const blankDay = document.createElement("li");
+        blankDay.textContent = "";
+        daysElement.appendChild(blankDay);
     }
 
-    // Fill in days for current month
-    for (let i = 1; i <= totalDays; i++) {
-        const day = document.createElement("div");
-        day.classList.add("date");
-        day.textContent = i;
-        datesContainer.appendChild(day);
-    }
 
-    // Fill in days from next month
-    const remainingDays = 7 - ((firstDay + totalDays) % 7);
-    if (remainingDays < 7) {
-        for (let i = 1; i <= remainingDays; i++) {
-            const day = document.createElement("div");
-            day.classList.add("date", "inactive");
-            day.textContent = i;
-            datesContainer.appendChild(day);
+
+    // Add days of the current month
+    for (let day = 1; day <= daysInMonth; day++) {
+        const dayElement = document.createElement("li");
+        dayElement.textContent = day;
+
+        if (
+            day === new Date().getDate() &&
+            year === new Date().getFullYear() &&
+            month === new Date().getMonth()
+        ) {
+            dayElement.classList.add("active");
         }
+
+
+
+
+        daysElement.appendChild(dayElement);
     }
+
 }
+
+// Add event listeners for navigation
+
+function test() {
+    // const newButton = document.createElement('button');
+    // newButton.textContent = 'Click me!';
+    // document.body.appendChild(newButton);
+
+    // newButton.addEventListener('click', () => {
+
+    // });
+
+    // Get the modal
+    var modal = document.getElementById("myModal");
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("myBtn");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks on the button, open the modal
+    btn.onclick = function () {
+        modal.style.display = "block";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
+
+
+}
+
 
 prevButton.addEventListener("click", () => {
     currentDate.setMonth(currentDate.getMonth() - 1);
@@ -62,5 +106,7 @@ nextButton.addEventListener("click", () => {
     renderCalendar();
 });
 
-// Initialize calendar
 renderCalendar();
+for (let i = 0; i <= daysElement.length; i++) {
+    document.write(daysElement)
+}
