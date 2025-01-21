@@ -1,68 +1,97 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
-    margin: 0;
-    background-color: #f0f0f0;
+    height: 100vh;
+    background-color: #f4f4f4;
 }
 
 .calendar-container {
-    width: 300px;
-    background: white;
-    border-radius: 8px;
+    background: #fff;
+    border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 800px;
     overflow: hidden;
 }
 
-.header {
+.calendar-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background-color: #007bff;
+    color: #fff;
     padding: 10px 20px;
-    background: #007BFF;
-    color: white;
 }
 
-.header button {
+.calendar-header h2 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.calendar-header button {
     background: none;
     border: none;
-    color: white;
-    font-size: 18px;
+    color: #fff;
+    font-size: 20px;
     cursor: pointer;
 }
 
-.header button:hover {
+.calendar-header button:hover {
     opacity: 0.8;
 }
 
-.days-of-week,
-.days-grid {
+.calendar {
+    padding: 10px;
+}
+
+.calendar-days {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-}
-
-.days-of-week div {
-    text-align: center;
-    padding: 10px 0;
     font-weight: bold;
-    background: #f4f4f4;
-}
-
-.days-grid div {
     text-align: center;
     padding: 10px 0;
-    border: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    color: #555;
+}
+
+.calendar-dates {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    padding: 10px 0;
+}
+
+.date {
+    text-align: center;
+    padding: 15px 0;
+    border-radius: 5px;
+    background: #f9f9f9;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-.days-grid div:hover {
-    background: #e0f7fa;
+.date:hover {
+    background: #007bff;
+    color: #fff;
 }
 
-.current-day {
-    background: #007BFF;
-    color: white;
-    border-radius: 4px;
+.date.inactive {
+    color: #aaa;
+    background: #eee;
+    cursor: default;
+}
+
+.date.today {
+    background: #007bff;
+    color: #fff;
+    font-weight: bold;
+}
+
+.date.event {
+    background: #ffc107;
+    color: #fff;
+    font-weight: bold;
 }
